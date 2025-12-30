@@ -1,0 +1,28 @@
+name: Run Kibana Script Daily
+
+on:
+  schedule:
+    - cron: "30 4 * * *"   # 10:00 AM IST (UTC time)
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install --with-deps
+
+      - name: Run script
+        run: python kibana_report.py
