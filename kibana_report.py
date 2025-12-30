@@ -41,7 +41,7 @@ def get_dashboard_url(space):
 screenshots = []
  
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)  # set True later for scheduler
+    browser = p.chromium.launch(headless=True)  # set True later for scheduler
     context = browser.new_context(viewport=VIEWPORT)
     page = context.new_page()
  
